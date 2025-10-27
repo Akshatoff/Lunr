@@ -40,8 +40,8 @@ function launchDashboard() {
   document.getElementById("dashboard").classList.add("active");
   document.getElementById("timeControls").classList.add("active");
   document.getElementById("addControls").classList.add("active");
-  initSimulation();
   init3D();
+  initSimulation();
 }
 
 // Orbital simulation
@@ -245,26 +245,44 @@ class OrbitalObject {
 function initSimulation() {
   // Create satellites
   for (let i = 0; i < 8; i++) {
-    satellites.push(
-      new OrbitalObject(
-        "satellite",
-        100 + Math.random() * 150,
-        0.01 + Math.random() * 0.02,
-        Math.random() * Math.PI * 2,
-      ),
+    const sat = new OrbitalObject(
+      "satellite",
+      100 + Math.random() * 150,
+      0.01 + Math.random() * 0.02,
+      Math.random() * Math.PI * 2,
     );
+    satellites.push(sat);
+
+    // Add to 3D scene
+    const geometry = new THREE.SphereGeometry(5, 16, 16);
+    const material = new THREE.MeshPhongMaterial({
+      color: 0x4ade80,
+      emissive: 0x22c55e,
+    });
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+    objects3D.push({ obj: sat, mesh });
   }
 
   // Create debris
   for (let i = 0; i < 15; i++) {
-    debris.push(
-      new OrbitalObject(
-        "debris",
-        80 + Math.random() * 180,
-        0.015 + Math.random() * 0.025,
-        Math.random() * Math.PI * 2,
-      ),
+    const deb = new OrbitalObject(
+      "debris",
+      80 + Math.random() * 180,
+      0.015 + Math.random() * 0.025,
+      Math.random() * Math.PI * 2,
     );
+    debris.push(deb);
+
+    // Add to 3D scene
+    const geometry = new THREE.SphereGeometry(3, 16, 16);
+    const material = new THREE.MeshPhongMaterial({
+      color: 0xff4444,
+      emissive: 0xcc0000,
+    });
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+    objects3D.push({ obj: deb, mesh });
   }
 
   updateStats();
