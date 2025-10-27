@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Space Waste Tracker</title>
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+  <body>
+    <div class="stars" id="stars"></div>
+
+    <div class="landing" id="landing">
+      <h1>🛰️ Space Waste Tracker</h1>
+      <p>Safeguarding the future of space exploration</p>
+      <button class="launch-btn" onclick="launchDashboard()">
+        Launch Dashboard
+      </button>
+    </div>
+
+    <div class="dashboard" id="dashboard">
+      <div class="header">
+        <h1>🌍 Space Waste Tracker Dashboard</h1>
+        <p>Real-time Orbital Debris Monitoring System</p>
+      </div>
+
+      <div class="stats">
+        <div class="stat-card">
+          <h3>Active Satellites</h3>
+          <div class="value" id="satelliteCount">0</div>
+        </div>
+        <div class="stat-card">
+          <h3>Debris Objects</h3>
+          <div class="value" id="debrisCount">0</div>
+        </div>
+        <div class="stat-card">
+          <h3>Collision Alerts</h3>
+          <div class="value" id="alertCount">0</div>
+        </div>
+        <div class="stat-card">
+          <h3>Risk Level</h3>
+          <div class="value" id="riskLevel">LOW</div>
+        </div>
+      </div>
+
+      <div class="main-visual">
+        <div class="canvas-container">
+          <div class="view-toggle">
+            <button class="view-btn active" onclick="switchView('2d')">
+              2D View
+            </button>
+            <button class="view-btn" onclick="switchView('3d')">3D View</button>
+          </div>
+          <div class="canvas-wrapper">
+            <canvas id="orbitCanvas" width="600" height="600"></canvas>
+            <canvas id="orbitCanvas3D" width="600" height="600"></canvas>
+          </div>
+        </div>
+        <div class="alerts">
+          <h2>⚠️ Live Alerts</h2>
+          <div id="alertList"></div>
+        </div>
+      </div>
+
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-color" style="background: #4ade80"></div>
+          <span>Satellites</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #ff4444"></div>
+          <span>Debris</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #60a5fa"></div>
+          <span>Earth</span>
+        </div>
+      </div>
+
+      <div class="info-section" style="margin-top: 3rem">
+        <div class="info-card">
+          <h3>📊 Global Debris Statistics</h3>
+          <ul>
+            <li>Over 100 million debris fragments orbit Earth</li>
+            <li>34,000+ objects larger than 10 cm tracked</li>
+            <li>900,000+ objects between 1-10 cm estimated</li>
+            <li>Average collision velocity: 10 km/s</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>🔮 Future Capabilities</h3>
+          <ul>
+            <li>Real-time tracking using NASA APIs</li>
+            <li>Predictive AI for collision avoidance</li>
+            <li>Sustainable orbital management</li>
+            <li>Automated debris removal planning</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>🎯 Impact & Mission</h3>
+          <ul>
+            <li>Prevent costly satellite collisions</li>
+            <li>Ensure safer space launches</li>
+            <li>Support sustainable space exploration</li>
+            <li>Protect critical infrastructure</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-controls" id="timeControls">
+      <h3>⏱️ Time Control</h3>
+      <div class="speed-buttons">
+        <button class="speed-btn" onclick="setTimeSpeed(0.25)">0.25x</button>
+        <button class="speed-btn" onclick="setTimeSpeed(0.5)">0.5x</button>
+        <button class="speed-btn active" onclick="setTimeSpeed(1)">1x</button>
+        <button class="speed-btn" onclick="setTimeSpeed(2)">2x</button>
+        <button class="speed-btn" onclick="setTimeSpeed(4)">4x</button>
+      </div>
+      <div class="speed-indicator" id="speedIndicator">
+        Speed: 1.0x (Normal)
+      </div>
+    </div>
+
+    <div class="add-controls" id="addControls">
+      <h3>➕ Add Objects</h3>
+      <div class="control-group">
+        <label>Type</label>
+        <select id="objectType">
+          <option value="satellite">Satellite</option>
+          <option value="debris">Debris</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label>Distance (km)</label>
+        <input type="range" id="distance" min="80" max="250" value="150" />
+        <span id="distanceValue">150 km</span>
+      </div>
+      <div class="control-group">
+        <label>Speed</label>
+        <input
+          type="range"
+          id="speed"
+          min="0.005"
+          max="0.04"
+          step="0.001"
+          value="0.02"
+        />
+        <span id="speedValue">0.020</span>
+      </div>
+      <div class="control-group">
+        <label>Starting Position (°)</label>
+        <input type="range" id="angle" min="0" max="360" value="0" />
+        <span id="angleValue">0°</span>
+      </div>
+      <button class="add-btn" onclick="addObject()">Add Object</button>
+      <button class="add-btn debris" onclick="clearAll()">
+        Clear All Objects
+      </button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script src="scripts/script.js"></script>
+  </body>
+</html>
